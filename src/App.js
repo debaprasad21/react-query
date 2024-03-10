@@ -1,9 +1,10 @@
 import "./App.css";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 function App() {
+  const queryClient = useQueryClient();
   const { data, error, isLoading } = useQuery({
-    queryKey: ["todo"],
+    queryKey: ["posts"],
     queryFn: () =>
       fetch("https://jsonplaceholder.typicode.com/posts").then((res) => {
         return res.json();
@@ -15,10 +16,13 @@ function App() {
       fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
         body: JSON.stringify(newPost),
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json;" },
       }).then((res) => {
         return res.json();
       }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
   });
 
   if (error || isError) return <div>There was an error</div>;
