@@ -5,9 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// defaulting all get useQuery stale time period
+// gcTime - use to clean the query if not used from the cache and no additional call is made retrieve it.
+// suggested to put on default but can be configured at individual level as well.
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { staleTime: 6000 } },
+  defaultOptions: { queries: { staleTime: 6000, gcTime: 10 * 60 * 1000 } },
 });
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
