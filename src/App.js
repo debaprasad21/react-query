@@ -9,14 +9,10 @@ function App() {
       fetch("https://jsonplaceholder.typicode.com/posts").then((res) => {
         return res.json();
       }),
-    staleTime: 4000,
+    refetchInterval: 4000,
   });
-  /* StaleTime - 
-  if there is no change in query, it will refetch automatically in the background based on
-  i. a new instance of the query is mounted
-  ii. window is refocused
-  iii. Network is reconnected
-  iv. when the query is optionally configured such that it has refetch.
+  /* refetchInterval - 
+  Refetchs after certain interval
   */
 
   const { mutate, isPending, isError, isSuccess } = useMutation({
