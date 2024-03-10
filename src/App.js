@@ -20,8 +20,9 @@ function App() {
       }).then((res) => {
         return res.json();
       }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    onSuccess: (newPost) => {
+      // setQueryData -  When we dont invalidate the cache of the query we look for but add our added value to the cache
+      queryClient.setQueryData(["posts"], (oldPosts) => [...oldPosts, newPost]);
     },
   });
 
