@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+// defaulting all get useQuery stale time period
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 6000 } },
 });
